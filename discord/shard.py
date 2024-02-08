@@ -435,7 +435,11 @@ class AutoShardedClient(Client):
         if self.shard_count is None:
             self.shard_count: int
             self.shard_count, gateway_url = await self.http.get_bot_gateway(compress=self._compress)
-            gateway = yarl.URL(gateway_url)
+
+            print("launch_shards", gateway_url)
+
+            if not self._compress:
+                gateway = yarl.URL(gateway_url)
         else:
             gateway = DiscordWebSocket.DEFAULT_GATEWAY
 
